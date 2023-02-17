@@ -1,0 +1,169 @@
+﻿<Window x:Class="YellowCarrot.DetailsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:YellowCarrot"
+        mc:Ignorable="d"
+        Title="DetailsWindow" Height="600" Width="800">
+    <Grid>
+        <!-- Grid definitions -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+        <!-- Tools -->
+
+        <Label
+            x:Name="lblName"
+            Grid.Column="3"
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            HorizontalAlignment="Center"
+            Content="Recipe Details"
+            FontSize="30"
+            FontWeight="Bold"
+            />
+        <Label
+            x:Name="lblRecipeName"
+            Grid.Column="1"
+            Grid.Row="2"
+            Content="Recipe Name:"
+            FontSize="19"
+            HorizontalAlignment="Right"
+            />
+        <Label
+            x:Name="lblIngredient"
+            Grid.Column="1"
+            Grid.Row="3"
+            Content="Ingredient:"
+            FontSize="20"
+            HorizontalAlignment="Right"
+            />
+        <Label
+            x:Name="lblIngredientQuantity"
+            Grid.Column="1"
+            Grid.Row="4"
+            Content="Quantity:"
+            FontSize="20"
+            HorizontalAlignment="Right"
+            />
+        <Label
+            x:Name="lblShowRecipeName"
+            Grid.Column="2"
+            Grid.Row="2"
+            Grid.ColumnSpan="2"
+            HorizontalAlignment="Left"
+            FontWeight="Black"
+            Width="200"
+            />
+
+        <Label
+            x:Name="lblTag"
+            Grid.Column="4"
+            Grid.Row="2"
+            Content="Tag:"
+            FontSize="20"
+            HorizontalAlignment="Center"
+            />
+        <Label
+            x:Name="lblShowCurrentTag"
+            Grid.Column="5"
+            Grid.Row="2"
+            Width="150"
+            />
+        <Label
+            x:Name="lblList"
+            Grid.Column="1"
+            Grid.Row="5"
+            Content="Ingredients:"
+            FontSize="20"
+            HorizontalAlignment="Right"
+            />
+        <TextBox
+            x:Name="txtNewRecipeName"
+            Grid.Column="2"
+            Grid.Row="2"
+            Grid.ColumnSpan="2"
+            HorizontalAlignment="Left"
+            Width="200"
+            />
+        <TextBox
+            x:Name="txtIngredient"
+            Grid.Column="2"
+            Grid.Row="3"
+            Width="150"
+            />
+        <TextBox
+            x:Name="txtIngredientQuantity"
+            Grid.Column="2"
+            Grid.Row="4"
+            Width="150"
+            />
+        <ListView
+            x:Name="lvIngredientList"
+            Grid.Column="2"
+            Grid.Row="5"
+            Grid.ColumnSpan="3"
+            Grid.RowSpan="3"
+            />
+        <Button
+            x:Name="btnCancel"
+            Grid.Column="5"
+            Grid.Row="8"
+            Content="Cancel"
+            FontSize="20" 
+            Click="btnCancel_Click"
+            />
+        
+        <Button
+            x:Name="btnSaveChanges"
+            Grid.Column="2"
+            Grid.Row="8"
+            Content="Save Recipe"
+            FontSize="20" 
+            Click="btnSaveChanges_Click"
+            />
+        <Button
+            x:Name="btnEdit"
+            Grid.Column="3"
+            Grid.Row="8"
+            Content="Edit Recipe"
+            FontSize="20" 
+            Click="btnEdit_Click"
+            />
+        <Button
+            x:Name="btnAddIngredient"
+            Grid.Column="4"
+            Grid.Row="4"
+            Content="Add Ingredient"
+            FontSize="15" 
+            Click="btnAddIngredient_Click"
+            />
+        <Button
+            x:Name="btnDeleteIngredient"
+            Content="Delete Ingredient"
+            Grid.Column="5"
+            Grid.Row="6"
+            FontSize="15" Click="btnDeleteIngredient_Click"
+            />
+    </Grid>
+</Window>
