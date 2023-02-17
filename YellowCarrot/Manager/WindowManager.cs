@@ -22,21 +22,24 @@ public static class WindowManager
         //tag om det har valts
 
         Recipe recipe = new();
-        recipe.Name= name;
-        recipe.Ingredients=ingredients;
+        recipe.Name = name;
+        recipe.Ingredients = ingredients;
 
         return recipe;
     }
 
-
-    public static void AddIngredient()
+    public static Ingredient AddIngredient(string name, string quantity)
     {
-
+        Ingredient ingredient = new();
+        ingredient.Name = name;
+        ingredient.Quantity = quantity;
+        return ingredient;
     }
 
+    //Går att skapa recept om det finns fler än 3
     public static bool Checking(string name, List<Ingredient>ingredients)
     {
-        if (ingredients.Count() > 3)
+        if (ingredients.Count() > 1)
         {
             if (!String.IsNullOrEmpty(name))
             {
@@ -44,21 +47,8 @@ public static class WindowManager
             }
         }
         return false;
-
-        //    else
-        //    {
-        //        //nånting ska sägas
-        //        DisplayInputError();
-        //    }
-        //}
-        //else
-        //{
-        //    //nånting ska sägas
-        //    DisplayInputError();
-        //}
-
-
     }
+
     //laddar en cbobox från en generell lista
     public static void LoadCboBox<T>(List<T>list, ComboBox cbo)
     {
@@ -68,8 +58,9 @@ public static class WindowManager
             cbo.Items.Add(item.ToString());
         }
     }
+
     //laddar en listview från en generell lista
-    public static void LoadLvBox<T>(List<T> list, ListView lview)
+    public static void LoadLview<T>(List<T> list, ListView lview)
     {
         lview.Items.Clear();
         foreach (var item in list)
@@ -77,8 +68,6 @@ public static class WindowManager
             lview.Items.Add(item.ToString());
         }
     }
-
-
 
     public static void DisplayInputError()
     {
@@ -99,7 +88,6 @@ public static class WindowManager
         }
     }
 
-
     //Visar alla recept i en listview
     public static void DisplayRecipes(ListView listView)
     {
@@ -119,5 +107,12 @@ public static class WindowManager
         //    }
         //}
 
+    }
+
+    public static ListViewItem ConvertListViewItem(Object obj)
+    {
+        ListViewItem lvItem = new();
+        lvItem.Tag = obj;
+        return lvItem;
     }
 }

@@ -31,8 +31,13 @@ public partial class AddRecipWindow : Window
     {
         InitializeComponent();
         WindowStartupLocation = WindowStartupLocation.CenterScreen;
-        WindowManager.LoadCboBox();
-        
+
+        using (var unitOfWork = new UnitOfWork(new AppDbContext()))
+        {
+            List<Tag> tags = new();
+            tags = unitOfWork.Tags.GetAll().ToList();
+            WindowManager.LoadCboBox(tags, cboTag);
+        }
     }
 
     //Tas tillbaka till mainwindow
@@ -47,11 +52,13 @@ public partial class AddRecipWindow : Window
     {
         if (WindowManager.Checking(txtRecipeName.Text, Ingredients))
         {
-            using (var UnitOfWork = new UnitOfWork(new AppDbContext()))
+            using (var unitOfWork = new UnitOfWork(new AppDbContext()))
             {
                 Recipe recipe = WindowManager.CreateRecipe(txtRecipeName.Text, Ingredients);
-                UnitOfWork.Recipes.Add(recipe);
-                UnitOfWork.Complete();
+                unitOfWork.Recipes.Add(recipe);
+                unitOfWork.Complete();
+                MessageBox.Show("Recipe Added");
+                Close();
             }
         }
         else
@@ -61,8 +68,24 @@ public partial class AddRecipWindow : Window
     }
     //Lägg till ingredienser
     private void btnAddIngredient_Click(object sender, RoutedEventArgs e)
-    {
+    {  
+        if (!String.IsNullOrEmpty(txtIngredient.Text) && !String.IsNullOrEmpty(txtIngredientQuantity.Text))
+        {
+            Ingredient ingredient = WindowManager.AddIngredient(txtIngredient.Text, txtIngredientQuantity.Text);
+            Ingredients.Add(ingredient);
+            ClearIngredientInputs();
+            WindowManager.LoadLview(Ingredients, lvIngredientList);
 
+            //using (var unitOfWork = new UnitOfWork(new AppDbContext()))
+            //{
+            //    Ingredient ingredient = WindowManager.AddIngredient(txtIngredient.Text, txtIngredientQuantity.Text);
+            //    unitOfWork.Ingredients.Add(ingredient);
+            //    unitOfWork.Complete();
+            //}
+        }
+        else
+
+        WindowManager.DisplayInputError();
 
 
         //if (String.IsNullOrEmpty(txtIngredient.Text))
@@ -79,10 +102,18 @@ public partial class AddRecipWindow : Window
         //}
     }
 
-    private void ClearUi()
+    private void ClearIngredientInputs()
     {
         txtIngredient.Clear();
         txtIngredientQuantity.Clear();
 
     }
+
+
+
+    ///if (int.TryParse(txtIngredientQuantity.Text, out int quantity))
+    //{
+    //     Ingredient ingredient = WindowManager.AddIngredient(txtIngredient.Text, txtIngredientQuantity.Text);
+    //}
+
 }

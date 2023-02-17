@@ -21,4 +21,10 @@ public class Ingredient
     public int RecipeId { get; set; }
     public Recipe Recipe { get; set; }
     //one to many relationship mellan recept och ingrediens
+
+    public override string ToString()
+    {
+        return DisplayString;
+    }
+
 }

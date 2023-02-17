@@ -15,4 +15,10 @@ public class Tag
     [MaxLength(50)]
     public string TagName { get; set; } = null!;
     //Many to one relationship, mellan tag och recept
+
+    public override string ToString()
+    {
+        return TagName;
+    }
+
 }

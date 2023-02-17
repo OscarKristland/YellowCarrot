@@ -13,7 +13,7 @@ namespace YellowCarrot.Repositories;
 
 public class TagRepository : Repository<Tag>, ITagRepository
 {
-    private readonly AppDbContext _context;
+    public readonly AppDbContext _context;
 
     public TagRepository(AppDbContext context) : base(context)
     {
