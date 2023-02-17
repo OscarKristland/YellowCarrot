@@ -10,19 +10,16 @@ namespace YellowCarrot.Data;
 
 public class AppDbContext: DbContext
 {
-	public AppDbContext()
-	{
+    public AppDbContext()
+    {
+    }
+    public DbSet<Tag> Tags { get; set; }
+    public DbSet<Ingredient> Ingredients { get; set; }
+    public DbSet<Recipe> Recipes { get; set; }
 
-	}
-
-	public AppDbContext(DbContextOptions options) : base(options)
-	{
-
-	}
-
-	public DbSet<Recipe> Recipes { get; set; }
-	public DbSet<Ingredient> Ingredients { get; set; }
-	public DbSet<Tag> Tags { get; set; }
+    public AppDbContext(DbContextOptions options) : base(options)
+    {
+    }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

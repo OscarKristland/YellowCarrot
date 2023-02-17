@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using YellowCarrot.Data;
 using YellowCarrot.Models;
@@ -14,6 +15,89 @@ public static class WindowManager
 {
     //hantera alla fönster, alltså alla klick,
 
+    public static Recipe CreateRecipe(string name,List<Ingredient>ingredients)
+    {
+        //namn
+        //minst 2 ingredienser
+        //tag om det har valts
+
+        Recipe recipe = new();
+        recipe.Name= name;
+        recipe.Ingredients=ingredients;
+
+        return recipe;
+    }
+
+
+    public static void AddIngredient()
+    {
+
+    }
+
+    public static bool Checking(string name, List<Ingredient>ingredients)
+    {
+        if (ingredients.Count() > 3)
+        {
+            if (!String.IsNullOrEmpty(name))
+            {
+                return true;
+            }
+        }
+        return false;
+
+        //    else
+        //    {
+        //        //nånting ska sägas
+        //        DisplayInputError();
+        //    }
+        //}
+        //else
+        //{
+        //    //nånting ska sägas
+        //    DisplayInputError();
+        //}
+
+
+    }
+    //laddar en cbobox från en generell lista
+    public static void LoadCboBox<T>(List<T>list, ComboBox cbo)
+    {
+        cbo.Items.Clear();
+        foreach (var item in list)
+        {
+            cbo.Items.Add(item.ToString());
+        }
+    }
+    //laddar en listview från en generell lista
+    public static void LoadLvBox<T>(List<T> list, ListView lview)
+    {
+        lview.Items.Clear();
+        foreach (var item in list)
+        {
+            lview.Items.Add(item.ToString());
+        }
+    }
+
+
+
+    public static void DisplayInputError()
+    {
+        MessageBox.Show("Input error");
+    }
+
+    public static void NameTryParse(string name)//Ingridiens, namn
+    {
+        int number;
+        bool isNumber = int.TryParse(name, out number);
+        if (isNumber == true)
+        {
+            // == true
+        }
+        else
+        {
+            // == false
+        }
+    }
 
 
     //Visar alla recept i en listview

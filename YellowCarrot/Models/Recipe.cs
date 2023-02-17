@@ -15,6 +15,6 @@ public class Recipe
     [MaxLength(50)]
     public string Name { get; set; } = null!;
     public List<Ingredient> Ingredients { get; set; } = new();
-    public int TagId { get; set; }
+    public int? TagId { get; set; }
 
 }

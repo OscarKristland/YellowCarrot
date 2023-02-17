@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using YellowCarrot.Data;
+using YellowCarrot.Manager;
 using YellowCarrot.Models;
 using YellowCarrot.Repositories;
 
@@ -30,30 +31,10 @@ public partial class AddRecipWindow : Window
     {
         InitializeComponent();
         WindowStartupLocation = WindowStartupLocation.CenterScreen;
-        btnAdd.IsEnabled = false;
-        btnAddIngredient.IsEnabled = false;
-        UpdateUi();
+        WindowManager.LoadCboBox();
+        
     }
-    //Uppdaterar comboboxen och rensar Listviewn
-    private void UpdateUi()
-    {
-        lvIngredientList.Items.Clear();
-        cboTag.Items.Clear();
 
-        using(AppDbContext context = new())
-        {
-            List<Tag> tags = context.Tags.ToList();
-
-            foreach(Tag tag in tags)
-            {
-                ComboBoxItem cboItem = new();
-                cboItem.Content = tag.TagName;
-                cboItem.Tag = tag;
-
-                cboTag.Items.Add(cboItem); 
-            }
-        }
-    }
     //Tas tillbaka till mainwindow
     private void btnCancel_Click(object sender, RoutedEventArgs e)
     {
@@ -64,53 +45,38 @@ public partial class AddRecipWindow : Window
     //lägg till recept
     private void btnAdd_Click(object sender, RoutedEventArgs e)
     {
-
-
-
-        if (String.IsNullOrEmpty(txtRecipeName.Text))
+        if (WindowManager.Checking(txtRecipeName.Text, Ingredients))
         {
-            MessageBox.Show("Please fill in the name of your recipe");
-        }
-        else if (Ingredients.Count == 0)
-        {
-            MessageBox.Show("Please add atleast one ingredient");
-        }
-        else if (cboTag.SelectedItem == null)
-        {
-            MessageBox.Show("Please select a tag for the recipe");
+            using (var UnitOfWork = new UnitOfWork(new AppDbContext()))
+            {
+                Recipe recipe = WindowManager.CreateRecipe(txtRecipeName.Text, Ingredients);
+                UnitOfWork.Recipes.Add(recipe);
+                UnitOfWork.Complete();
+            }
         }
         else
         {
-            string recipeName = txtRecipeName.Text;
-            string ingredient1 = txtIngredient.Text;
-            string quantityIngredient1 = txtIngredientQuantity.Text;
-
-            using (AppDbContext context = new())
-            {
-                
-
-                
-
-                context.SaveChanges();
-            }
-            txtRecipeName.Clear();
+            WindowManager.DisplayInputError();
         }
     }
     //Lägg till ingredienser
     private void btnAddIngredient_Click(object sender, RoutedEventArgs e)
     {
-        if (String.IsNullOrEmpty(txtIngredient.Text))
-        {
-            MessageBox.Show("The recipe has to atleast have an ingredient");
-        }
-        else if (String.IsNullOrEmpty(txtIngredientQuantity.Text))
-        {
-            MessageBox.Show("Please fill in the quantity");
-        }
-        else
-        {
-            ClearUi();
-        }
+
+
+
+        //if (String.IsNullOrEmpty(txtIngredient.Text))
+        //{
+        //    MessageBox.Show("The recipe has to atleast have an ingredient");
+        //}
+        //else if (String.IsNullOrEmpty(txtIngredientQuantity.Text))
+        //{
+        //    MessageBox.Show("Please fill in the quantity");
+        //}
+        //else
+        //{
+        //    ClearUi();
+        //}
     }
 
     private void ClearUi()

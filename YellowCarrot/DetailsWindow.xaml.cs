@@ -74,7 +74,7 @@ public partial class DetailsWindow : Window
 
                 using(AppDbContext context = new())
                 {
-                    new RecipeRepository(context).UpdateRecipe(_recipe);
+                    //new RecipeRepository(context).UpdateRecipe(_recipe);
                     MessageBox.Show("Your recipe has been succesfully changed");
                     context.SaveChanges();
                 }
@@ -112,8 +112,8 @@ public partial class DetailsWindow : Window
         _recipe.Ingredients.Add(ingredient);
         using(AppDbContext context = new())
         {
-            new IngredientRepository(context).AddIngredient(ingredient);
-            new RecipeRepository(context).AddIngredientToRcipe(ingredient);
+            //new IngredientRepository(context).AddIngredient(ingredient);
+            //new RecipeRepository(context).AddIngredientToRcipe(ingredient);
         }
 
         UpdateUi();
@@ -121,22 +121,22 @@ public partial class DetailsWindow : Window
     //Tar bort en ingrediens från receptet
     private void btnDeleteIngredient_Click(object sender, RoutedEventArgs e)
     {
-        ListViewItem? selectedItem = lvIngredientList.SelectedItem as ListViewItem;
+        //ListViewItem? selectedItem = lvIngredientList.SelectedItem as ListViewItem;
 
-        Ingredient? selectedIngredient = selectedItem?.Tag as Ingredient;
+        //Ingredient? selectedIngredient = selectedItem?.Tag as Ingredient;
 
-        if(selectedItem != null)
-        {
-            _recipe?.Ingredients.Remove(selectedIngredient!);
+        //if(selectedItem != null)
+        //{
+        //    _recipe?.Ingredients.Remove(selectedIngredient!);
 
-            using (AppDbContext context = new())
-            {
-                new IngredientRepository(context).IngredientToRemove(selectedIngredient!);
-                context.SaveChanges();
-                MessageBox.Show("Item successfully removed!");
-            }
-        }
+        //    using (AppDbContext context = new())
+        //    {
+        //        new IngredientRepository(context).IngredientToRemove(selectedIngredient!);
+        //        context.SaveChanges();
+        //        MessageBox.Show("Item successfully removed!");
+        //    }
+        //}
 
-        UpdateUi();
+        //UpdateUi();
     }
 }

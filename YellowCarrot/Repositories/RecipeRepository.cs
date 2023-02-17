@@ -10,45 +10,12 @@ using YellowCarrot.Models;
 
 namespace YellowCarrot.Repositories;
 
-public class RecipeRepository: IRecipeRepository
+public class RecipeRepository : Repository<Recipe>, IRecipeRepository
 {
-    private readonly AppDbContext _context;
+    public readonly AppDbContext _context;
 
-    public RecipeRepository(AppDbContext context)
+    public RecipeRepository(AppDbContext context) : base(context)
     {
         _context = context;
     }
-
-    //Få recept, med ingredienser plus tagg
-    public List<Recipe> GetRecipes()
-    {
-        return _context.Recipes.Include(r => r.Ingredients).Include(r => r.Tags).ToList();
-    }
-
-    //Få id, med ingredienser plus tagg
-    public Recipe? GetRecipe(int id)
-    {
-        return _context.Recipes.Include(r => r.Ingredients).Include(r=>r.Tags).FirstOrDefault(r => r.RecipeId == id);
-    }
-
-    public void AddRecipe(Recipe recipeToAdd)
-    {
-        _context.Recipes.Add(recipeToAdd);
-    }
-
-    public void UpdateRecipe(Recipe recipeToUpdate)
-    {
-        _context.Recipes.Update(recipeToUpdate);
-    }
-
-    public void DeleteRecipe(Recipe recipeToRemove)
-    {
-        _context.Recipes.Remove(recipeToRemove);
-    }
-
-    public void AddIngredientToRcipe(Ingredient IngredientToAdd)
-    {
-        _context.Recipes.Add(GetRecipe(IngredientToAdd.RecipeId));
-    }
-
 }

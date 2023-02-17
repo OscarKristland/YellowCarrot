@@ -31,13 +31,13 @@ public partial class MainWindow : Window
         InitializeComponent();
         WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
-        using (AppDbContext context = new())
-        {
-            btnDetails.IsEnabled = false;
-            btnDelete.IsEnabled = false;
-            DisplayRecipes();
-            context.SaveChanges();
-        }
+        //using (AppDbContext context = new())
+        //{
+        //    //btnDetails.IsEnabled = false;
+        //    //btnDelete.IsEnabled = false;
+        //    //DisplayRecipes();
+        //    //context.SaveChanges();
+        //}
         
     }
 
@@ -55,22 +55,22 @@ public partial class MainWindow : Window
     private void btnDetails_Click(object sender, RoutedEventArgs e)
     {
 
-        using (AppDbContext context = new())
-        {
-            ListViewItem selectedItem = lvRecipes.SelectedItem as ListViewItem;
+    //    using (AppDbContext context = new())
+    //    {
+    //        ListViewItem selectedItem = lvRecipes.SelectedItem as ListViewItem;
 
-            if(selectedItem == null)
-            {
-                MessageBox.Show("Please select a recipe.");
-            }
-            else
-            {
-                Recipe selectedRecipe = selectedItem.Tag as Recipe;
-                DetailsWindow detailsWindow = new DetailsWindow(selectedRecipe);
-                detailsWindow.Show();
-                Close();
-            }
-        }
+    //        if(selectedItem == null)
+    //        {
+    //            MessageBox.Show("Please select a recipe.");
+    //        }
+    //        else
+    //        {
+    //            Recipe selectedRecipe = selectedItem.Tag as Recipe;
+    //            DetailsWindow detailsWindow = new DetailsWindow(selectedRecipe);
+    //            detailsWindow.Show();
+    //            Close();
+    //        }
+    //    }
 
     }
     //Stänger ner programmet
@@ -81,24 +81,24 @@ public partial class MainWindow : Window
     //Ta bort recept, varningsmeddelande först sen en bekräftelse
     private void btnDelete_Click(object sender, RoutedEventArgs e)
     {
-        ListViewItem selectedItem = lvRecipes.SelectedItem as ListViewItem;
+        //ListViewItem selectedItem = lvRecipes.SelectedItem as ListViewItem;
 
-        if(selectedItem != null)
-        {
-            Recipe recipe = selectedItem.Tag as Recipe;
+        //if(selectedItem != null)
+        //{
+        //    Recipe recipe = selectedItem.Tag as Recipe;
 
-            MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure you want to delete the selected recipe?", "Warning!", MessageBoxButton.YesNo);
-            if(messageBoxResult == MessageBoxResult.Yes)
-            {
-                using (AppDbContext context = new())
-                {
-                    recipe = context.Recipes.Where(x => x == recipe).FirstOrDefault();
-                    context.SaveChanges();
-                }
-                DisplayRecipes();
-            }
+        //    MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure you want to delete the selected recipe?", "Warning!", MessageBoxButton.YesNo);
+        //    if(messageBoxResult == MessageBoxResult.Yes)
+        //    {
+        //        using (AppDbContext context = new())
+        //        {
+        //            recipe = context.Recipes.Where(x => x == recipe).FirstOrDefault();
+        //            context.SaveChanges();
+        //        }
+        //        DisplayRecipes();
+        //    }
             
-        }
+        //}
     }
 
     private void lvRecipes_SelectionChanged(object sender, SelectionChangedEventArgs e)
