@@ -34,9 +34,11 @@ public partial class AddRecipWindow : Window
 
         using (var unitOfWork = new UnitOfWork(new AppDbContext()))
         {
-            List<Tag> tags = new();
-            tags = unitOfWork.Tags.GetAll().ToList();
-            WindowManager.LoadCboBox(tags, cboTag);
+            //List<Tag> tags = new();
+            //tags = unitOfWork.Tags.GetAll().ToList();
+            //WindowManager.LoadCboBox(tags, cboTag);
+            //Säger samma sak som koden ovan. Fungerar på samma sätt som den i main window för att ladda listviewn
+            WindowManager.LoadCboBox(unitOfWork.Tags.GetAll().ToList(), cboTag);
         }
     }
 
@@ -58,6 +60,8 @@ public partial class AddRecipWindow : Window
                 unitOfWork.Recipes.Add(recipe);
                 unitOfWork.Complete();
                 MessageBox.Show("Recipe Added");
+                MainWindow mainWindow = new MainWindow();
+                mainWindow.Show();
                 Close();
             }
         }

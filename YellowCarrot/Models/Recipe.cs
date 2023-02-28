@@ -17,4 +17,8 @@ public class Recipe
     public List<Ingredient> Ingredients { get; set; } = new();
     public int? TagId { get; set; }
 
+    public override string ToString()
+    {
+        return $"{Name}";
+    }
 }

@@ -19,7 +19,7 @@ public static class WindowManager
     {
         //namn
         //minst 2 ingredienser
-        //tag om det har valts
+        
 
         Recipe recipe = new();
         recipe.Name = name;
@@ -89,25 +89,25 @@ public static class WindowManager
     }
 
     //Visar alla recept i en listview
-    public static void DisplayRecipes(ListView listView)
-    {
-        listView.Items.Clear();
+    //public static void DisplayRecipes(ListView listView)
+    //{
+    //    listView.Items.Clear();
 
-        //using (AppDbContext context = new())
-        //{
-        //    List<Recipe> recipes = new RecipeRepository(context).GetRecipes();
-        //    foreach (Recipe recipe in recipes)
-        //    {
-        //        ListViewItem item = new();
+    //    //using (AppDbContext context = new())
+    //    //{
+    //    //    List<Recipe> recipes = new RecipeRepository(context).GetRecipes();
+    //    //    foreach (Recipe recipe in recipes)
+    //    //    {
+    //    //        ListViewItem item = new();
 
-        //        item.Content = recipe.Name;
-        //        item.Tag = recipe;
+    //    //        item.Content = recipe.Name;
+    //    //        item.Tag = recipe;
 
-        //        listView.Items.Add(item);
-        //    }
-        //}
+    //    //        listView.Items.Add(item);
+    //    //    }
+    //    //}
 
-    }
+    //}
 
     public static ListViewItem ConvertListViewItem(Object obj)
     {

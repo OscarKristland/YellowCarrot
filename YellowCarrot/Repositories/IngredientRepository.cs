@@ -12,7 +12,7 @@ namespace YellowCarrot.Repositories;
 
 public class IngredientRepository : Repository<Ingredient>, IIngredientRepository
 {
-    private readonly AppDbContext _context;
+    public readonly AppDbContext _context;
 
     public IngredientRepository(AppDbContext context) : base(context)
     {

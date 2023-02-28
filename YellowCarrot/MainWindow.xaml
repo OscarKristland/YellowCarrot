@@ -62,6 +62,7 @@
             Content="Details"
             FontSize="15" 
             Click="btnDetails_Click"
+            IsEnabled="False"
             />
         <Button
             x:Name="btnQuit"
@@ -78,6 +79,7 @@
             Content="Delete"
             FontSize="15" 
             Click="btnDelete_Click"
+            IsEnabled="False"
             />
         <ListView
             x:Name="lvRecipes"
