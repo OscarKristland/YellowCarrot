@@ -139,4 +139,9 @@ public partial class DetailsWindow : Window
 
         //UpdateUi();
     }
+
+    private void lvIngredientList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+
+    }
 }

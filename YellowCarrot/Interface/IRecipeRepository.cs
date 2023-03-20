@@ -9,5 +9,8 @@ namespace YellowCarrot.Interface
 {
     public interface IRecipeRepository : IRepository<Recipe>
     {
+        List<Recipe> GetAllRecipesWithIngredients();
+        Recipe GetRecipeWithIngredients(int recipeId);
+
     }
 }

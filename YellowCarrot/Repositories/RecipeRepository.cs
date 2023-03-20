@@ -18,4 +18,15 @@ public class RecipeRepository : Repository<Recipe>, IRecipeRepository
     {
         _context = context;
     }
+
+    public List<Recipe> GetAllRecipesWithIngredients()
+    {
+        return _context.Recipes.Include(r => r.Ingredients).ToList();
+    }
+
+    public Recipe GetRecipeWithIngredients(int id)
+    {
+        return _context.Recipes.Include(r => r.Ingredients).First(r => r.RecipeId == id);
+    }
+
 }

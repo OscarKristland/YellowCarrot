@@ -37,6 +37,7 @@ public partial class AddRecipWindow : Window
             //List<Tag> tags = new();
             //tags = unitOfWork.Tags.GetAll().ToList();
             //WindowManager.LoadCboBox(tags, cboTag);
+
             //Säger samma sak som koden ovan. Fungerar på samma sätt som den i main window för att ladda listviewn
             WindowManager.LoadCboBox(unitOfWork.Tags.GetAll().ToList(), cboTag);
         }
@@ -78,7 +79,7 @@ public partial class AddRecipWindow : Window
             Ingredient ingredient = WindowManager.AddIngredient(txtIngredient.Text, txtIngredientQuantity.Text);
             Ingredients.Add(ingredient);
             ClearIngredientInputs();
-            WindowManager.LoadLview(Ingredients, lvIngredientList);
+            WindowManager.LoadLviewIngredients(Ingredients, lvIngredientList);
 
             //using (var unitOfWork = new UnitOfWork(new AppDbContext()))
             //{
@@ -113,7 +114,22 @@ public partial class AddRecipWindow : Window
 
     }
 
+    private void btnDeleteIngredient_Click(object sender, RoutedEventArgs e)
+    {
+        ListViewItem selectedItem = lvIngredientList.SelectedItem as ListViewItem;
 
+        if (selectedItem != null)
+        {
+            ListViewItem selectedItemToDelete = (ListViewItem)lvIngredientList.SelectedItems[0];
+            lvIngredientList.Items.Remove(selectedItemToDelete);
+        }
+        else if (selectedItem == null)
+        {
+            MessageBox.Show("Error");
+        }
+
+        
+    }
 
     ///if (int.TryParse(txtIngredientQuantity.Text, out int quantity))
     //{
