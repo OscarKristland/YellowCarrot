@@ -15,9 +15,10 @@ public class Ingredient
     [MaxLength(50)]
     public string Name { get; set; } = null!;
     [MaxLength(50)]
-    public string Quantity { get; set; }
+    public int Quantity { get; set; }
+    public string Units { get; set; }
     [MaxLength(50)]
-    public string DisplayString => $"{Name} / {Quantity}";
+    public string DisplayString => $"{Name} / {Quantity} / {Units}";
     public int RecipeId { get; set; }
     public Recipe Recipe { get; set; }
     //one to many relationship mellan recept och ingrediens

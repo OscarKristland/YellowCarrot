@@ -37,20 +37,23 @@ public class AppDbContext: DbContext
 		});
 		//Ingredienserna till ovannämnda receptet
 		modelBuilder.Entity<Ingredient>().HasData(new Ingredient()
-		{
-			IngredientId = 1,
-			Name = "Macaroner",
-			Quantity = "4 dl",
-			RecipeId = 1
-		}, new Ingredient()
-		{
+        {
+            IngredientId = 1,
+            Name = "Macaroner",
+
+            Quantity = 4,
+            Units = "dl",
+            RecipeId = 1
+        }, new Ingredient()
+        {
             IngredientId = 2,
             Name = "Köttbullar",
-            Quantity = "Ett dussin",
+            Quantity = 1,
+            Units = "dussin",
             RecipeId = 1
         });
 
-		modelBuilder.Entity<Tag>().HasData(new Tag()
+        modelBuilder.Entity<Tag>().HasData(new Tag()
 		{
 			TagId = 1,
 			TagName = "Husmanskost"

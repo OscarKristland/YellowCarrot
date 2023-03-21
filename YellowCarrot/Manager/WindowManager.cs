@@ -42,11 +42,12 @@ public static class WindowManager
     }
 
     //Lägga till ingridiens
-    public static Ingredient AddIngredient(string name, string quantity)
+    public static Ingredient CreateIngredient(string name, int quantity, string unit)
     {
         Ingredient ingredient = new();
         ingredient.Name = name;
         ingredient.Quantity = quantity;
+        ingredient.Units = unit;
         return ingredient;
     }
 
@@ -63,6 +64,8 @@ public static class WindowManager
         return false;
     }
 
+
+
     //laddar en cbobox från en generell lista
     public static void LoadCboBox<T>(List<T>list, ComboBox cbo)
     {
@@ -71,6 +74,13 @@ public static class WindowManager
         {
             cbo.Items.Add(item.ToString());
         }
+    }
+
+    public static void LoadAllUnits(ComboBox comboBox)
+    {
+        //cbo läggas till i
+        //for
+        comboBox.ItemsSource = Enum.GetNames(typeof(Unit));
     }
 
     //Metod för om det sker något fel så ska det visas att det gått snett till
@@ -113,6 +123,15 @@ public static class WindowManager
         }
     }
 
+    public static void LoadLview<T>(List<T> list, ListView lview)
+    {
+        lview.Items.Clear();
+        foreach (var item in list)
+        {
+            lview.Items.Add(item.ToString());
+        }
+    }
+
     //Laddar listviewn med recept för framsidan med alla recept
     public static void LoadLview(ListView listView, UnitOfWork unitOfWork)
     {
@@ -146,26 +165,4 @@ public static class WindowManager
     {
         return _context.Recipes.Include(r => r.Ingredients).ToList();
     }
-
-
-    //Visar alla recept i en listview
-    //public static void DisplayRecipes(ListView listView)
-    //{
-    //    listView.Items.Clear();
-
-    //    //using (AppDbContext context = new())
-    //    //{
-    //    //    List<Recipe> recipes = new RecipeRepository(context).GetRecipes();
-    //    //    foreach (Recipe recipe in recipes)
-    //    //    {
-    //    //        ListViewItem item = new();
-
-    //    //        item.Content = recipe.Name;
-    //    //        item.Tag = recipe;
-
-    //    //        listView.Items.Add(item);
-    //    //    }
-    //    //}
-
-    //}
 }

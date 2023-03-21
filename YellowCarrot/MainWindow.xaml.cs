@@ -40,24 +40,7 @@ public partial class MainWindow : Window
                 unitOfWork.Complete();
             }
         }
-
-        //using (AppDbContext context = new())
-        //{
-        //    using (var unitOfWork = new UnitOfWork(context))
-        //    {
-        //        WindowManager.LoadLview(unitOfWork.Recipes.GetAll()
-        //                                                  .ToList(),
-        //                                                  lvRecipes);
-        //        unitOfWork.Complete();
-
-        //        List<Recipe> Recipes = unitOfWork.Recipes.GetAll().ToList();
-        //        //listan på recept, recipes(Recipes), den vill sedan veta var den ska stoppas in, alltså i listviewn som kallas lvRecipes.
-        //        WindowManager.LoadLview(Recipes, lvRecipes);
-        //    }
-        //}
     }
-
-
 
     //Öppnar ett fönster där användaren ska kunna lägga till ett recept
     private void AddRecipe_Click(object sender, RoutedEventArgs e)
@@ -70,64 +53,21 @@ public partial class MainWindow : Window
     //Visar det valda receptet i ett nytt fönster
     private void btnDetails_Click(object sender, RoutedEventArgs e)
     {
-        Recipe recipe = WindowManager.GetRecipeFromListView(lvRecipes);
+        Recipe selectedRecipe = WindowManager.GetRecipeFromListView(lvRecipes);
 
         using (var unitOfWork = new UnitOfWork(new AppDbContext()))
         {
-            //Receptet som har valts ska skickas med till detailsWindow. Receptet och ingredienser.
-
             //CHecken görs genom windowmanager, alltså ska vi bara kalla på windowmanager och vilken metod i vill ska köras.
 
-            recipe = unitOfWork.Recipes.GetRecipeWithIngredients(recipe.RecipeId);
-            WindowManager.LoadIngredients(lvRecipes, recipe.Ingredients);
+            selectedRecipe = unitOfWork.Recipes.GetRecipeWithIngredients(selectedRecipe.RecipeId);
+            WindowManager.LoadIngredients(lvRecipes, selectedRecipe.Ingredients);
+
+            DetailsWindow detailsWindow = new DetailsWindow(selectedRecipe);
+            detailsWindow.Show();
             unitOfWork.Complete();
-
-
-
-
-
-            //if(lvRecipes.SelectedItem != null)
-            //{
-            //    Recipe? selectedRecipe = lvRecipes.SelectedItem as Recipe;
-            //    DetailsWindow detailsWindow = new DetailsWindow(selectedRecipe);
-            //    detailsWindow.Show();
-            //    unitOfWork.Complete();
-            //    Close();
-
-            //    //Receptet åker inte med
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Smth went wrong");
-            //}
+            this.Close();
 
         }
-
-        // Open a new window with the correct data loaded from the selected recipe,
-        // ( use the other windows constructor to accept a recipe object,
-        // then in the constructor set the UI-Elements content to the corresponding recipes properties),
-        // You will need to use the .Tag property to get the correct recipe object,
-        // then store it in a variable and pass that variable in the window constructor
-
-
-
-        //    using (AppDbContext context = new())
-        //    {
-        //        ListViewItem selectedItem = lvRecipes.SelectedItem as ListViewItem;
-
-        //        if(selectedItem == null)
-        //        {
-        //            MessageBox.Show("Please select a recipe.");
-        //        }
-        //        else
-        //        {
-        //            Recipe selectedRecipe = selectedItem.Tag as Recipe;
-        //            DetailsWindow detailsWindow = new DetailsWindow(selectedRecipe);
-        //            detailsWindow.Show();
-        //            Close();
-        //        }
-        //    }
-
     }
     //Ta bort recept, varningsmeddelande först sen en bekräftelse
     private void btnDelete_Click(object sender, RoutedEventArgs e)

@@ -25,8 +25,6 @@ public partial class AddRecipWindow : Window
 {
     private List<Ingredient> Ingredients = new();
 
-    //private List<Tag> Tags = new();
-
     public AddRecipWindow()
     {
         InitializeComponent();
@@ -34,12 +32,8 @@ public partial class AddRecipWindow : Window
 
         using (var unitOfWork = new UnitOfWork(new AppDbContext()))
         {
-            //List<Tag> tags = new();
-            //tags = unitOfWork.Tags.GetAll().ToList();
-            //WindowManager.LoadCboBox(tags, cboTag);
-
-            //Säger samma sak som koden ovan. Fungerar på samma sätt som den i main window för att ladda listviewn
             WindowManager.LoadCboBox(unitOfWork.Tags.GetAll().ToList(), cboTag);
+            WindowManager.LoadAllUnits(cboUnit);
         }
     }
 
@@ -51,7 +45,7 @@ public partial class AddRecipWindow : Window
         Close();
     }
     //lägg till recept
-    private void btnAdd_Click(object sender, RoutedEventArgs e)
+    private void btnSaveRecipe_Click(object sender, RoutedEventArgs e)
     {
         if (WindowManager.Checking(txtRecipeName.Text, Ingredients))
         {
@@ -73,38 +67,23 @@ public partial class AddRecipWindow : Window
     }
     //Lägg till ingredienser
     private void btnAddIngredient_Click(object sender, RoutedEventArgs e)
-    {  
+    {
         if (!String.IsNullOrEmpty(txtIngredient.Text) && !String.IsNullOrEmpty(txtIngredientQuantity.Text))
         {
-            Ingredient ingredient = WindowManager.AddIngredient(txtIngredient.Text, txtIngredientQuantity.Text);
-            Ingredients.Add(ingredient);
-            ClearIngredientInputs();
-            WindowManager.LoadLviewIngredients(Ingredients, lvIngredientList);
-
-            //using (var unitOfWork = new UnitOfWork(new AppDbContext()))
-            //{
-            //    Ingredient ingredient = WindowManager.AddIngredient(txtIngredient.Text, txtIngredientQuantity.Text);
-            //    unitOfWork.Ingredients.Add(ingredient);
-            //    unitOfWork.Complete();
-            //}
+            using (var unitOfWork = new UnitOfWork(new AppDbContext()))
+            if (int.TryParse(txtIngredientQuantity.Text, out int quantity))
+            {
+                    //Om tryparsen lyckas så kommer den att returnera true, genom att spara värdet från quantity.text i parametern quantity.
+                    Ingredient ingredient = WindowManager.CreateIngredient(txtIngredient.Text, quantity, cboUnit.SelectedItem.ToString());
+                    Ingredients.Add(ingredient);
+                    ClearIngredientInputs();
+                    WindowManager.LoadLviewIngredients(Ingredients, lvIngredientList);
+            }
         }
-        else
-
-        WindowManager.DisplayInputError();
-
-
-        //if (String.IsNullOrEmpty(txtIngredient.Text))
-        //{
-        //    MessageBox.Show("The recipe has to atleast have an ingredient");
-        //}
-        //else if (String.IsNullOrEmpty(txtIngredientQuantity.Text))
-        //{
-        //    MessageBox.Show("Please fill in the quantity");
-        //}
-        //else
-        //{
-        //    ClearUi();
-        //}
+        else 
+        {
+            WindowManager.DisplayInputError();
+        }
     }
 
     private void ClearIngredientInputs()
@@ -125,15 +104,12 @@ public partial class AddRecipWindow : Window
         }
         else if (selectedItem == null)
         {
-            MessageBox.Show("Error");
+            WindowManager.DisplayInputError();
         }
-
-        
     }
 
-    ///if (int.TryParse(txtIngredientQuantity.Text, out int quantity))
-    //{
-    //     Ingredient ingredient = WindowManager.AddIngredient(txtIngredient.Text, txtIngredientQuantity.Text);
-    //}
+    private void cboUnit_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
 
+    }
 }
