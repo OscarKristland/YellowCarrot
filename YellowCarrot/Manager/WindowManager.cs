@@ -28,6 +28,11 @@ public static class WindowManager
         _context.Recipes.Remove(recipeToRemove);
     }
 
+    public static void RemoveIngredient(Ingredient ingredientToRemove)
+    {
+        _context.Ingredients.Remove(ingredientToRemove);
+    }
+
     //Skapa ett recept
     public static Recipe CreateRecipe(string name,List<Ingredient>ingredients)
     {
@@ -47,7 +52,7 @@ public static class WindowManager
         Ingredient ingredient = new();
         ingredient.Name = name;
         ingredient.Quantity = quantity;
-        ingredient.Units = unit;
+        ingredient.Unit = unit;
         return ingredient;
     }
 
@@ -67,7 +72,7 @@ public static class WindowManager
 
 
     //laddar en cbobox från en generell lista
-    public static void LoadCboBox<T>(List<T>list, ComboBox cbo)
+    public static void LoadComboBox<T>(List<T> list, ComboBox cbo)
     {
         cbo.Items.Clear();
         foreach (var item in list)
@@ -76,17 +81,24 @@ public static class WindowManager
         }
     }
 
-    public static void LoadAllUnits(ComboBox comboBox)
+    public static void LoadUnitsToComboBox(ComboBox comboBox)
     {
-        //cbo läggas till i
-        //for
         comboBox.ItemsSource = Enum.GetNames(typeof(Unit));
     }
 
-    //Metod för om det sker något fel så ska det visas att det gått snett till
-    public static void DisplayInputError()
+    //Metod för om det sker något fel så ska det visas att det gått snett till eller om det gått rätt till
+    public static void DisplayErrorMessage(string errorMessage)
     {
-        MessageBox.Show("Input error");
+        MessageBox.Show(errorMessage, "Error");
+    }
+    public static void DisplayInputError(string errorMessage)
+    {
+        MessageBox.Show(errorMessage, "Input error");
+    }
+
+    public static void DisplaySuccessMessage(string outputMessage)
+    {
+        MessageBox.Show(outputMessage, "Success");
     }
 
     public static void NameTryParse(string name)//Ingridiens, namn
@@ -123,7 +135,7 @@ public static class WindowManager
         }
     }
 
-    public static void LoadLview<T>(List<T> list, ListView lview)
+    public static void LoadListView<T>(List<T> list, ListView lview)
     {
         lview.Items.Clear();
         foreach (var item in list)
@@ -133,7 +145,7 @@ public static class WindowManager
     }
 
     //Laddar listviewn med recept för framsidan med alla recept
-    public static void LoadLview(ListView listView, UnitOfWork unitOfWork)
+    public static void LoadListView(ListView listView, UnitOfWork unitOfWork)
     {
         foreach (var recipe in unitOfWork.Recipes.GetAll())
         {

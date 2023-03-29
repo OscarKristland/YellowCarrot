@@ -67,16 +67,6 @@
             HorizontalAlignment="Right"
             />
         <Label
-            x:Name="lblShowRecipeName"
-            Grid.Column="2"
-            Grid.Row="2"
-            Grid.ColumnSpan="2"
-            HorizontalAlignment="Left"
-            FontWeight="Black"
-            Width="200"
-            />
-
-        <Label
             x:Name="lblTag"
             Grid.Column="4"
             Grid.Row="2"
@@ -91,7 +81,7 @@
             Width="150"
             />
         <Label
-            x:Name="lblList"
+            x:Name="lblListofIngredients"
             Grid.Column="1"
             Grid.Row="5"
             Content="Ingredients:"
@@ -121,14 +111,13 @@
             x:Name="cboUnit"
             Grid.Column="3"
             Grid.Row="4" 
-            SelectionChanged="cboUnit_SelectionChanged"
             />
         <ListView
             x:Name="lvIngredientList"
             Grid.Column="2"
             Grid.Row="5"
             Grid.ColumnSpan="3"
-            Grid.RowSpan="3" SelectionChanged="lvIngredientList_SelectionChanged"
+            Grid.RowSpan="3" 
             />
         <Button
             x:Name="btnCancel"

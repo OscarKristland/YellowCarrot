@@ -113,7 +113,6 @@
             x:Name="cboUnit"
             Grid.Column="3"
             Grid.Row="4"
-            SelectionChanged="cboUnit_SelectionChanged"
             />
 
         <ListView
@@ -121,7 +120,7 @@
             Grid.Column="2"
             Grid.Row="5"
             Grid.ColumnSpan="3"
-            Grid.RowSpan="3"
+            Grid.RowSpan="3" SelectionChanged="lvIngredientList_SelectionChanged"
             />
         <Button
             x:Name="btnCancel"

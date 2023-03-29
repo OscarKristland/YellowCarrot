@@ -11,7 +11,7 @@ namespace YellowCarrot.Models;
 public class Recipe
 {
     [Key]
-    public int RecipeId { get; set; }
+    public int Id { get; set; }
     [MaxLength(50)]
     public string Name { get; set; } = null!;
     public List<Ingredient> Ingredients { get; set; } = new();

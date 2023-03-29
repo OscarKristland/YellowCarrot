@@ -12,7 +12,7 @@ using YellowCarrot.Data;
 namespace YellowCarrot.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230217201953_initial")]
+    [Migration("20230328143842_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -27,26 +27,29 @@ namespace YellowCarrot.Migrations
 
             modelBuilder.Entity("YellowCarrot.Models.Ingredient", b =>
                 {
-                    b.Property<int>("IngredientId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IngredientId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("Quantity")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
 
                     b.Property<int>("RecipeId")
                         .HasColumnType("int");
 
-                    b.HasKey("IngredientId");
+                    b.Property<string>("Unit")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("RecipeId");
 
@@ -55,27 +58,29 @@ namespace YellowCarrot.Migrations
                     b.HasData(
                         new
                         {
-                            IngredientId = 1,
+                            Id = 1,
                             Name = "Macaroner",
-                            Quantity = "4 dl",
-                            RecipeId = 1
+                            Quantity = 4,
+                            RecipeId = 1,
+                            Unit = "dl"
                         },
                         new
                         {
-                            IngredientId = 2,
+                            Id = 2,
                             Name = "Köttbullar",
-                            Quantity = "Ett dussin",
-                            RecipeId = 1
+                            Quantity = 1,
+                            RecipeId = 1,
+                            Unit = "dussin"
                         });
                 });
 
             modelBuilder.Entity("YellowCarrot.Models.Recipe", b =>
                 {
-                    b.Property<int>("RecipeId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RecipeId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -85,7 +90,7 @@ namespace YellowCarrot.Migrations
                     b.Property<int?>("TagId")
                         .HasColumnType("int");
 
-                    b.HasKey("RecipeId");
+                    b.HasKey("Id");
 
                     b.HasIndex("TagId");
 
@@ -94,7 +99,7 @@ namespace YellowCarrot.Migrations
                     b.HasData(
                         new
                         {
-                            RecipeId = 1,
+                            Id = 1,
                             Name = "Makaroner och Köttbullar",
                             TagId = 1
                         });
@@ -102,46 +107,46 @@ namespace YellowCarrot.Migrations
 
             modelBuilder.Entity("YellowCarrot.Models.Tag", b =>
                 {
-                    b.Property<int>("TagId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TagId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("TagName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.HasKey("TagId");
+                    b.HasKey("Id");
 
                     b.ToTable("Tags");
 
                     b.HasData(
                         new
                         {
-                            TagId = 1,
-                            TagName = "Husmanskost"
+                            Id = 1,
+                            Name = "Husmanskost"
                         },
                         new
                         {
-                            TagId = 2,
-                            TagName = "Medelshavsmat"
+                            Id = 2,
+                            Name = "Medelshavsmat"
                         },
                         new
                         {
-                            TagId = 3,
-                            TagName = "Vegetarisk"
+                            Id = 3,
+                            Name = "Vegetarisk"
                         },
                         new
                         {
-                            TagId = 4,
-                            TagName = "Vegansk"
+                            Id = 4,
+                            Name = "Vegansk"
                         },
                         new
                         {
-                            TagId = 5,
-                            TagName = "Asiatisk"
+                            Id = 5,
+                            Name = "Asiatisk"
                         });
                 });
 

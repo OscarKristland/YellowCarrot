@@ -10,15 +10,15 @@ namespace YellowCarrot.Models;
 public class Tag
 {
     [Key]
-    public int TagId { get; set; }
+    public int Id { get; set; }
     public List<Recipe> Recipes { get; set; } = new();
     [MaxLength(50)]
-    public string TagName { get; set; } = null!;
+    public string Name { get; set; } = null!;
     //Many to one relationship, mellan tag och recept
 
     public override string ToString()
     {
-        return TagName;
+        return $"{Name}";
     }
 
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YellowCarrot.Data;
 
-internal enum Unit
+public enum Unit
 {
     MG,
     G,

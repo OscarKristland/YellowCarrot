@@ -35,7 +35,7 @@
             x:Name="lblwelcome"
             Grid.Column="1"
             Grid.Row="1"
-            Grid.ColumnSpan="3"
+            Grid.ColumnSpan="5"
             Content="Welcome to Yellow Carrot"
             FontSize="30"
             FontWeight="Bold"

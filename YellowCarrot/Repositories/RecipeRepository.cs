@@ -26,7 +26,7 @@ public class RecipeRepository : Repository<Recipe>, IRecipeRepository
 
     public Recipe GetRecipeWithIngredients(int id)
     {
-        return _context.Recipes.Include(r => r.Ingredients).First(r => r.RecipeId == id);
+        return _context.Recipes.Include(r => r.Ingredients).First(r => r.Id == id);
     }
 
 }

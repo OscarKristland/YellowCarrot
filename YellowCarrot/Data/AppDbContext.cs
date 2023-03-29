@@ -31,52 +31,51 @@ public class AppDbContext: DbContext
 		//Start receptet
 		modelBuilder.Entity<Recipe>().HasData(new Recipe()
 		{
-			RecipeId = 1,
+			Id = 1,
 			Name = "Makaroner och Köttbullar",
 			TagId = 1
 		});
 		//Ingredienserna till ovannämnda receptet
 		modelBuilder.Entity<Ingredient>().HasData(new Ingredient()
         {
-            IngredientId = 1,
+            Id = 1,
             Name = "Macaroner",
-
             Quantity = 4,
-            Units = "dl",
+            Unit = "dl",
             RecipeId = 1
         }, new Ingredient()
         {
-            IngredientId = 2,
+            Id = 2,
             Name = "Köttbullar",
             Quantity = 1,
-            Units = "dussin",
+            Unit = "dussin",
             RecipeId = 1
         });
 
         modelBuilder.Entity<Tag>().HasData(new Tag()
 		{
-			TagId = 1,
-			TagName = "Husmanskost"
+			Id = 1,
+			Name = "Husmanskost"
 		},
 		new Tag()
 		{
-			TagId = 2,
-			TagName = "Medelshavsmat"
+            Id = 2,
+			Name = "Medelshavsmat"
 		},
 		new Tag()
         {
-            TagId = 3,
-            TagName = "Vegetarisk"
+            Id = 3,
+            Name = "Vegetarisk"
         },
         new Tag()
         {
-            TagId = 4,
-            TagName = "Vegansk"
+            Id = 4,
+            Name = "Vegansk"
         },
         new Tag()
         {
-            TagId = 5,
-            TagName = "Asiatisk"
+            Id = 5,
+            Name = "Asiatisk"
         });
 	}
 
