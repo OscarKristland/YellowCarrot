@@ -34,19 +34,19 @@
 
         <Label
             x:Name="lblRecipeDetails"
-            Grid.Column="3"
+            Grid.Column="1"
             Grid.Row="1"
-            Grid.ColumnSpan="2"
+            Grid.ColumnSpan="6"
             HorizontalAlignment="Center"
-            Content="Recipe Details"
-            FontSize="30"
+            Content=""
+            FontSize="20"
             FontWeight="Bold"
             />
         <Label
             x:Name="lblRecipeName"
             Grid.Column="1"
             Grid.Row="2"
-            Content="Recipe Name:"
+            Content="New Name:"
             FontSize="19"
             HorizontalAlignment="Right"
             />

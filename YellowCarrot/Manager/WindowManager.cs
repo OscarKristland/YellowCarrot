@@ -16,23 +16,6 @@ public static class WindowManager
 {
     private static readonly AppDbContext _context;
 
-    //hantera alla fönster, alltså alla klick//
-    public static void AddLvItemToLv(ListViewItem lvItem, ListView listView)
-    {
-        listView.Items.Add(lvItem);
-    }
-
-    //Ta bort ett recept
-    public static void RemoveRecipe(Recipe recipeToRemove)
-    {
-        _context.Recipes.Remove(recipeToRemove);
-    }
-
-    public static void RemoveIngredient(Ingredient ingredientToRemove)
-    {
-        _context.Ingredients.Remove(ingredientToRemove);
-    }
-
     //Skapa ett recept
     public static Recipe CreateRecipe(string name,List<Ingredient>ingredients)
     {
@@ -57,9 +40,9 @@ public static class WindowManager
     }
 
     //Går att skapa recept om det finns fler än 3
-    public static bool Checking(string name, List<Ingredient>ingredients)
+    public static bool CheckingIfRecipeIsEmpty(string name, List<Ingredient>ingredients)
     {
-        if (ingredients.Count() > 1)
+        if (ingredients.Count() > 0)
         {
             if (!String.IsNullOrEmpty(name))
             {
@@ -69,15 +52,13 @@ public static class WindowManager
         return false;
     }
 
-
-
     //laddar en cbobox från en generell lista
     public static void LoadComboBox<T>(List<T> list, ComboBox cbo)
     {
         cbo.Items.Clear();
         foreach (var item in list)
         {
-            cbo.Items.Add(item.ToString());
+            cbo.Items.Add(item!.ToString());
         }
     }
 
@@ -126,15 +107,18 @@ public static class WindowManager
         return null;
     }
 
-    public static void LoadLviewIngredients<T>(List<T> list, ListView lview)
+    public static Ingredient GetIngredientFromListView(ListView listView)
     {
-        lview.Items.Clear();
-        foreach (var item in list)
+        if(listView.SelectedItem != null)
         {
-            lview.Items.Add(item.ToString());
+            ListViewItem selectedItem = listView.SelectedItem as ListViewItem;
+            Ingredient selectedIngredient = selectedItem.Tag as Ingredient;
+            return selectedIngredient;
         }
+        return null;
     }
 
+   
     public static void LoadListView<T>(List<T> list, ListView lview)
     {
         lview.Items.Clear();
@@ -147,6 +131,7 @@ public static class WindowManager
     //Laddar listviewn med recept för framsidan med alla recept
     public static void LoadListView(ListView listView, UnitOfWork unitOfWork)
     {
+        listView.Items.Clear();
         foreach (var recipe in unitOfWork.Recipes.GetAll())
         {
             WindowManager.AddLvItemToLv(WindowManager.ConvertToListViewItem(recipe, $"{recipe.Name}"), listView);
@@ -168,8 +153,14 @@ public static class WindowManager
         listView.Items.Clear();
         foreach (var ingredient in ingredients)
         {
-            WindowManager.AddLvItemToLv(WindowManager.ConvertToListViewItem(ingredient, $"{ingredient.Name}"), listView);
+            WindowManager.AddLvItemToLv(WindowManager.ConvertToListViewItem(ingredient, $"{ingredient.Name} / {ingredient.Quantity} / {ingredient.Unit}"), listView);
         }
+    }
+
+    //hantera alla fönster, alltså alla klick//
+    public static void AddLvItemToLv(ListViewItem lvItem, ListView listView)
+    {
+        listView.Items.Add(lvItem);
     }
 
     //tar alla recept inklusive deras ingridienser

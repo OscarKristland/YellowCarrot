@@ -12,7 +12,7 @@ using YellowCarrot.Data;
 namespace YellowCarrot.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230328143842_initial")]
+    [Migration("20230329153816_initial")]
     partial class initial
     {
         /// <inheritdoc />

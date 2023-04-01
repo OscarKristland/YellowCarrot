@@ -9,5 +9,6 @@ namespace YellowCarrot.Interface
 {
     public interface IIngredientRepository: IRepository<Ingredient>
     {
+        
     }
 }

@@ -23,7 +23,7 @@ public class Ingredient
 
     public override string ToString()
     {
-        return $"{Name} / {Quantity} / {Unit}";
+        return $"{Name} | {Quantity} | {Unit}";
     }
 
 }

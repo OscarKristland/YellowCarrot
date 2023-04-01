@@ -63,7 +63,6 @@ public partial class MainWindow : Window
             unitOfWork.Complete();
             detailsWindow.Show();
             this.Close();
-
         }
     }
     //Ta bort recept, varningsmeddelande först sen en bekräftelse
@@ -76,7 +75,8 @@ public partial class MainWindow : Window
             {
                 using (var unitOfWork = new UnitOfWork(new AppDbContext()))
                 {
-                    unitOfWork.Recipes.Remove(lvRecipes.SelectedItem as Recipe);
+                    Recipe selectedRecipe = WindowManager.GetRecipeFromListView(lvRecipes);
+                    unitOfWork.Recipes.Remove(selectedRecipe);
                     unitOfWork.Complete();
                     WindowManager.DisplaySuccessMessage("The Recipe was removed!");
                     WindowManager.LoadListView(lvRecipes, unitOfWork);
