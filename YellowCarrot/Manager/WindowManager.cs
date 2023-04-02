@@ -153,7 +153,7 @@ public static class WindowManager
         listView.Items.Clear();
         foreach (var ingredient in ingredients)
         {
-            WindowManager.AddLvItemToLv(WindowManager.ConvertToListViewItem(ingredient, $"{ingredient.Name} / {ingredient.Quantity} / {ingredient.Unit}"), listView);
+            WindowManager.AddLvItemToLv(WindowManager.ConvertToListViewItem(ingredient, $"{ingredient.Name} | {ingredient.Quantity} | {ingredient.Unit}"), listView);
         }
     }
 

@@ -80,10 +80,15 @@ public partial class DetailsWindow : Window
                     }
                 }
                 //Lägg till
-                foreach (var ingredientToAdd in ingredientsToAdd)
+                Recipe recipe = unitOfWork.Recipes.FindById(_recipe!.Id);
+                if(recipe != null)
                 {
-                    _recipe.Ingredients.Add(ingredientToAdd);
+                    foreach (var ingredientToAdd in ingredientsToAdd)
+                    {
+                        recipe.Ingredients.Add(ingredientToAdd);
+                    }
                 }
+                
                 //Är namnet samma some innan?
                 if (_recipe.Name != txtRecipeName.Text)
                 {
@@ -99,7 +104,7 @@ public partial class DetailsWindow : Window
         }
         else
         {
-            WindowManager.DisplayInputError("An error occurred, please try again.");
+            WindowManager.DisplayErrorMessage("A recipe needs to have at least one ingredient...");
         }
     }
 
@@ -125,27 +130,47 @@ public partial class DetailsWindow : Window
     //Lägger till en ingrediens till receptet
     private void btnAddIngredient_Click(object sender, RoutedEventArgs e)
     {
-        if (!String.IsNullOrEmpty(txtIngredient.Text) && !String.IsNullOrEmpty(txtIngredientQuantity.Text) && cboUnit.SelectedIndex != -1)
+        if (!String.IsNullOrEmpty(txtIngredient.Text))
         {
-            if (int.TryParse(txtIngredientQuantity.Text, out int quantity))
+            if (!String.IsNullOrEmpty(txtIngredientQuantity.Text))
             {
-                //Om tryparsen lyckas så kommer den att returnera true,
-                //genom att spara värdet från quantity.text i parametern quantity.
-                Ingredient ingredient = WindowManager.CreateIngredient(txtIngredient.Text,
-                                                                       quantity,
-                                                                       cboUnit.SelectedItem.ToString()!);
-                
-                WindowManager.AddLvItemToLv(WindowManager.ConvertToListViewItem(ingredient, $"{ingredient.Name} | " +
-                                                                                            $"{ingredient.Quantity} | " +
-                                                                                            $"{ingredient.Unit}"), lvIngredientList);
-                ingredientsToAdd.Add(ingredient);
-                currentIngredients.Add(ingredient);
-                ClearIngredientInputs();
+                if (cboUnit.SelectedIndex != -1)
+                {
+                    if (int.TryParse(txtIngredientQuantity.Text, out int quantity))
+                    {
+                        //Om tryparsen lyckas så kommer den att returnera true,
+                        //genom att spara värdet från quantity.text i parametern quantity.
+                        Ingredient ingredient = WindowManager.CreateIngredient(txtIngredient.Text,
+                                                                               quantity,
+                                                                               cboUnit.SelectedItem.ToString()!);
+
+                        WindowManager.AddLvItemToLv(WindowManager.ConvertToListViewItem(ingredient, $"{ingredient.Name} | " +
+                                                                                                    $"{ingredient.Quantity} | " +
+                                                                                                    $"{ingredient.Unit}"), 
+                                                                                                    lvIngredientList);
+                        ingredientsToAdd.Add(ingredient);
+                        currentIngredients.Add(ingredient);
+                        ClearIngredientInputs();
+                        WindowManager.DisplaySuccessMessage($"You have successfully added {ingredient.Name}");
+                    }
+                    else
+                    {
+                        WindowManager.DisplayInputError("Something went wrong, please try again");
+                    }
+                }
+                else
+                {
+                    WindowManager.DisplayInputError("You need to fill in what unit you wish to use!");
+                }
+            }
+            else
+            {
+                WindowManager.DisplayInputError("You need to specify the quantity of an ingredient!");
             }
         }
         else
         {
-            WindowManager.DisplayInputError("An error occured, please try again.");
+            WindowManager.DisplayInputError("An ingredient needs a name");
         }
     }
     //Tar bort en ingrediens från receptet
@@ -164,16 +189,13 @@ public partial class DetailsWindow : Window
                 lvIngredientList.Items.Remove(ingredientToRemove);
                 WindowManager.LoadIngredients(lvIngredientList, currentIngredients);
             }
-            else
-            {
-                throw new ArgumentNullException(nameof(selectedIngredient), "selected item is not an ingredient object");
-            }
-            
         }
         else if (lvIngredientList.SelectedItem == null)
         {
             WindowManager.DisplayInputError("Please select an igredient to remove!");
         }
+
+        WindowManager.DisplaySuccessMessage("You have successfully removed and ingredient!");
     }
 
     private void ClearIngredientInputs()
